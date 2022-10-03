@@ -15,9 +15,14 @@ _global_script_classes=[ {
 "path": "res://src/actors/actor.gd"
 }, {
 "base": "Actor",
+"class": "FeetSeeker",
+"language": "GDScript",
+"path": "res://src/actors/feetseeker/FeetSeeker.gd"
+}, {
+"base": "Reference",
 "class": "Player",
 "language": "GDScript",
-"path": "res://src/actors/player.gd"
+"path": "res://src/actors/player/player.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -26,13 +31,14 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
+"FeetSeeker": "",
 "Player": "",
 "State": ""
 }
 
 [application]
 
-config/name="platformer2d"
+config/name="Boxy"
 run/main_scene="res://scenes/MainScene.tscn"
 config/icon="res://resources/player/player16x16.png"
 
@@ -53,6 +59,7 @@ test="en"
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/default_gravity=196
 
 [rendering]
 
