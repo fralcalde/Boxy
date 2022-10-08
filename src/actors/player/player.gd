@@ -40,7 +40,10 @@ func _physics_process(_delta):
 	current_state = get_node("StateMachine/" + state_machine.get_current_node())
 	
 	if current_state is State:
-		_velocity = current_state.apply_movement(_delta, _velocity)
+		if current_state.has_method("apply_movement"):
+			_velocity = current_state.apply_movement(_delta, _velocity)
+		else:
+			_velocity.x = lerp(_velocity.x, 0, GROUND_FRICTION)
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 	
 	if current_state is State:
@@ -55,3 +58,7 @@ func set_sprite_direction():
 		$Sprite.flip_h = true
 	elif _move_input.x > 0:
 		$Sprite.flip_h = false
+
+
+func _on_HurtBox_hit():
+	state_machine.travel("DEAD")

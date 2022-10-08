@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://resources/player/player16x16.png" type="Texture" id=1]
 [ext_resource path="res://src/actors/player/player.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://src/actors/player/MOVE.gd" type="Script" id=4]
 [ext_resource path="res://src/actors/player/JUMP.gd" type="Script" id=5]
 [ext_resource path="res://src/actors/player/FALL.gd" type="Script" id=6]
+[ext_resource path="res://src/HurtBox.gd" type="Script" id=7]
+[ext_resource path="res://src/State/state.gd" type="Script" id=8]
 
 [sub_resource type="RayShape2D" id=32]
 length = 8.0
@@ -64,7 +66,7 @@ states/MOVE/position = Vector2( 525.418, 215.989 )
 transitions = [ "IDLE", "MOVE", SubResource( 8 ), "MOVE", "JUMP", SubResource( 11 ), "JUMP", "FALL", SubResource( 13 ), "IDLE", "DEAD", SubResource( 16 ), "MOVE", "DEAD", SubResource( 17 ), "JUMP", "DEAD", SubResource( 18 ), "FALL", "DEAD", SubResource( 19 ), "MOVE", "IDLE", SubResource( 28 ), "MOVE", "FALL", SubResource( 29 ), "FALL", "IDLE", SubResource( 30 ), "IDLE", "JUMP", SubResource( 31 ) ]
 start_node = "IDLE"
 end_node = "DEAD"
-graph_offset = Vector2( -195, 78 )
+graph_offset = Vector2( -195, 120.722 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=21]
 
@@ -115,6 +117,9 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=27]
 resource_name = "SLIDE"
 
+[sub_resource type="CircleShape2D" id=34]
+radius = 8.0
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
@@ -149,6 +154,9 @@ script = ExtResource( 5 )
 [node name="FALL" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 
+[node name="DEAD" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DEAD = SubResource( 22 )
 anims/FALL = SubResource( 23 )
@@ -167,4 +175,11 @@ margin_bottom = -32.0
 wait_time = 0.3
 one_shot = true
 
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource( 34 )
+
 [connection signal="timeout" from="JumpTimer" to="StateMachine/JUMP" method="_on_JumpTimer_timeout"]
+[connection signal="hit" from="HurtBox" to="." method="_on_HurtBox_hit"]
