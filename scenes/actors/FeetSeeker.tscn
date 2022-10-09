@@ -34,6 +34,7 @@ states/IDLE/node = SubResource( 8 )
 states/IDLE/position = Vector2( 385.667, 71 )
 transitions = [ "IDLE", "CHASE_LEFT", SubResource( 9 ), "CHASE_LEFT", "IDLE", SubResource( 10 ), "IDLE", "CHASE_RIGHT", SubResource( 11 ), "CHASE_RIGHT", "IDLE", SubResource( 12 ) ]
 start_node = "IDLE"
+graph_offset = Vector2( -219, -32 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
@@ -90,14 +91,19 @@ anims/CHASE_RIGHT = SubResource( 4 )
 anims/IDLE = SubResource( 5 )
 
 [node name="StateDebug" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = -20.0
+margin_top = -32.0
+margin_right = 20.0
+margin_bottom = -18.0
 
 [node name="HitBox" type="Area2D" parent="."]
 script = ExtResource( 7 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
 polygon = PoolVector2Array( -2, -15, -15, 15, 15, 15, 2, -15 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+physics_process_parent = true
 
 [connection signal="player_left" from="HorizontalDetector" to="." method="_on_HorizontalDetector_player_left"]
 [connection signal="player_right" from="HorizontalDetector" to="." method="_on_HorizontalDetector_player_right"]

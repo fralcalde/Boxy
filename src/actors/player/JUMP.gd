@@ -27,4 +27,5 @@ func apply_movement(_delta, _velocity):
 
 
 func _on_JumpTimer_timeout():
-	_parent.state_machine.travel("FALL")
+	if _parent.state_machine.get_current_node() == "JUMP":
+		_parent.state_machine.travel("FALL")

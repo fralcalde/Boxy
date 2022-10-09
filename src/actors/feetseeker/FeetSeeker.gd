@@ -21,11 +21,13 @@ func _physics_process(_delta):
 
 
 func _on_HorizontalDetector_player_left():
-	state_machine.travel("CHASE_LEFT")
+	if state_machine.get_current_node() == "IDLE":
+		state_machine.travel("CHASE_LEFT")
 
 
 func _on_HorizontalDetector_player_right():
-	state_machine.travel("CHASE_RIGHT")
+	if state_machine.get_current_node() == "IDLE":
+		state_machine.travel("CHASE_RIGHT")
 
 
 func _on_CHASE_RIGHT_collided():

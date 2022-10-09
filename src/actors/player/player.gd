@@ -5,10 +5,10 @@ onready var state_machine = $StateMachine.get("parameters/playback")
 onready var current_state = get_node("StateMachine/" + state_machine.get_current_node())
 
 export var GROUND_ACC = 300.0
-export var AIR_ACC = 150.0
+export var AIR_ACC = 200.0
 export var MAX_GROUND_SPEED = 150.0
 export var MAX_JUMP_SPEED = 100.0
-export var GROUND_FRICTION = 0.05
+export var GROUND_FRICTION = 0.1
 export var AIR_FRICTION = 0.01
 export var JUMP_TIME = 0.3
 
@@ -62,3 +62,4 @@ func set_sprite_direction():
 
 func _on_HurtBox_hit():
 	state_machine.travel("DEAD")
+
